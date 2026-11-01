@@ -1,0 +1,186 @@
+﻿@model StoryVerse.Models.User
+@inject StoryVerse.Data.AppDbContext _context
+
+@{
+    ViewData["Title"] = "My Profile";
+    
+    // Calculăm statisticile reale din baza de date pentru acest user
+    int publishedCount = _context.Stories.Count(s => s.AuthorId == Model.Id);
+    int favoritesCount = _context.Favorites.Count(f => f.UserId == Model.Id);
+    int commentsCount = _context.Comments.Count(c => c.UserId == Model.Id);
+    
+    // Luăm titlurile primelor 3 povești publicate de el, dacă există
+    var myStories = _context.Stories.Where(s => s.AuthorId == Model.Id).Take(3).ToList();
+}
+
+<style>
+    /* Fundalul general pentru toată pagina - ACUM CU IMAGINEA TA MAGICĂ */
+    .profile-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 60px 20px;
+        min-height: calc(100vh - 130px);
+        /* Adăugăm imaginea ta: profile.png */
+        /* Am pus un strat negru transparent peste ea pentru a păstra contrastul textului */
+        background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('/images/profile.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* O face să stea pe loc când dai scroll */
+        background-repeat: no-repeat;
+    }
+
+    /* Cardurile le lăsăm albe, dar le facem puțin transparente ca să fie mai elegante */
+    .profile-card {
+        background-color: rgba(255, 252, 249, 0.96); /* Puțin transparent */
+        border-radius: 20px;
+        padding: 40px;
+        width: 100%;
+        max-width: 800px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.3); /* Umbră mai puternică */
+        border: 1px solid #e2d5cc;
+        margin-bottom: 30px;
+        transition: transform 0.3s ease;
+    }
+    
+        .profile-card:hover {
+            transform: translateY(-5px); /* Un mic efect de hover */
+        }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+    }
+
+    /* Un avatar fals elegant, din CSS */
+    .profile-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        /* O imagine cozy implicită de profil */
+        background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=400&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        border: 5px solid white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        flex-shrink: 0;
+    }
+
+    .profile-info {
+        flex-grow: 1;
+    }
+
+    .profile-name {
+        color: #4a2f21;
+        font-family: 'Georgia', serif;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        margin-top: 0;
+    }
+
+    .profile-email {
+        color: #8b5e3c;
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+
+    /* Casetele cu statistici */
+    .stats-container {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .stat-box {
+        background: #fdf5e6;
+        padding: 15px 20px;
+        border-radius: 15px;
+        text-align: center;
+        flex: 1;
+        border: 1px solid #f2ebe6;
+    }
+
+    .stat-number {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #4a2f21;
+        font-family: 'Georgia', serif;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: #8b5e3c;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Secțiunile de text */
+    .section-title {
+        font-family: 'Georgia', serif;
+        color: #4a2f21;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .section-text {
+        color: #555;
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+</style>
+
+<div class="profile-wrapper">
+    
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-avatar"></div>
+            <div class="profile-info">
+                <h1 class="profile-name">@Model.Username</h1>
+                <div class="profile-email">✉️ @Model.Email</div>
+                <p class="section-text" style="font-size: 0.95em;">
+                    I love getting lost in words, letting the world fade away around me, and feeling every emotion between the lines of each chapter.
+                </p>
+                
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <span class="stat-number">@publishedCount</span>
+                        <span class="stat-label">Published</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">@favoritesCount</span>
+                        <span class="stat-label">Favorites</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">@commentsCount</span>
+                        <span class="stat-label">Comments</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-card">
+        <h2 class="section-title">My Recent Stories</h2>
+        
+        @if (myStories.Any())
+        {
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+                @foreach (var story in myStories)
+                {
+                    <div style="background: white; border: 1px solid #e2d5cc; border-radius: 15px; padding: 20px; flex: 1; min-width: 200px;">
+                        <h4 style="color: #4a2f21; font-family: 'Georgia', serif; margin-top: 0;">@story.Title</h4>
+                        <p style="color: #8b5e3c; font-size: 0.85rem;">Published: @story.CreatedAt?.ToShortDateString()</p>
+                        <a asp-controller="Stories" asp-action="Details" asp-route-id="@story.Id" style="color: #a3765d; font-weight: bold; text-decoration: none; font-size: 0.9em;">View Story →</a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="section-text" style="font-style: italic;">You haven't published any stories yet. Go to the Publish tab to start your journey!</p>
+        }
+    </div>
+
+</div>

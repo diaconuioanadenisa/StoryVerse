@@ -1,0 +1,175 @@
+﻿@model StoryVerse.Models.Story
+
+@{
+    ViewData["Title"] = "Read Story";
+    var comments = ViewBag.Comments as IEnumerable<StoryVerse.Models.Comment>;
+}
+
+<style>
+
+    .details-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+        min-height: calc(100vh - 130px);
+    }
+
+
+    .details-container {
+        width: 100%;
+        max-width: 800px;
+    }
+
+ 
+    .story-paper {
+        background-color: #fffcf9;
+        border-radius: 20px;
+        padding: 50px 60px;
+        box-shadow: 0 10px 30px rgba(107, 78, 61, 0.08);
+        margin-bottom: 40px;
+        border: 1px solid #f2eBE6;
+    }
+
+    .story-title {
+        font-family: 'Georgia', serif;
+        color: #4a2f21;
+        font-size: 3rem;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .story-meta {
+        text-align: center;
+        color: #8b5e3c;
+        font-style: italic;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+    }
+
+    .story-body {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #333;
+        white-space: pre-wrap;
+        font-family: 'Georgia', serif;
+    }
+
+ 
+    .comments-section {
+        background-color: rgba(252, 249, 246, 0.8);
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid #e2d5cc;
+    }
+
+    .comment-box {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 5px solid #a3765d;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .comment-author {
+        color: #4a2f21;
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .comment-text {
+        color: #555;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+  
+    .comment-input {
+        width: 100%;
+        border: 2px solid #e2d5cc;
+        border-radius: 12px;
+        padding: 15px;
+        font-family: inherit;
+        margin-bottom: 15px;
+        box-sizing: border-box; 
+        resize: vertical;
+    }
+    
+        .comment-input:focus {
+            outline: none;
+            border-color: #a3765d;
+            box-shadow: 0 0 8px rgba(163, 118, 93, 0.15);
+        }
+
+    .action-btn {
+        background-color: #8b5e3c;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 25px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.3s;
+        width: 100%;
+        font-size: 1.1rem;
+    }
+
+        .action-btn:hover {
+            background-color: #724c30;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="details-wrapper">
+    <div class="details-container">
+        
+        <div class="story-paper">
+            <h1 class="story-title">@Model.Title</h1>
+            <div class="story-meta">
+                Written by <strong>@Model.Author?.Username</strong>
+            </div>
+            
+            <hr style="border-color: #e2d5cc; margin-bottom: 40px; opacity: 0.5;" />
+            
+            <div class="story-body">@Model.Content</div>
+        </div>
+
+        <div class="comments-section">
+            <h3 style="font-family: 'Georgia', serif; color: #4a2f21; margin-bottom: 25px;">Reader Feedback 💬</h3>
+
+            <div style="margin-bottom: 30px;">
+                @if (comments != null && comments.Any())
+                {
+                    foreach (var comment in comments)
+                    {
+                        <div class="comment-box">
+                            <div class="comment-author">@comment.User?.Username</div>
+                            <p class="comment-text">@comment.Content</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div style="text-align: center; padding: 30px; border: 2px dashed #e2d5cc; border-radius: 15px; color: #8b5e3c; background: rgba(255,255,255,0.5);">
+                        <p style="margin: 0; font-style: italic; font-size: 1.1rem;">No comments yet. Why not be the first to share your thoughts?</p>
+                    </div>
+                }
+            </div>
+
+            <form asp-controller="Stories" asp-action="AddComment" method="post" style="margin-top: 30px;">
+                <input type="hidden" name="storyId" value="@Model.Id" />
+                
+                <div style="margin-bottom: 10px; font-weight: bold; color: #5a4031; font-size: 1.1rem;">Leave a comment</div>
+                <textarea name="content" class="comment-input" rows="3" placeholder="What did you think of the story?" required></textarea>
+                
+                <button type="submit" class="action-btn">Post Comment</button>
+            </form>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a asp-action="Index" style="color: #8b5e3c; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: color 0.2s;">← Back to Library</a>
+        </div>
+
+    </div>
+</div>

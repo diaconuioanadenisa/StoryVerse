@@ -1,0 +1,137 @@
+﻿@model StoryVerse.Models.Story
+
+@{
+    ViewData["Title"] = "Edit Story";
+}
+
+<style>
+ 
+    .edit-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 130px);
+        padding: 40px 20px;
+    }
+
+    .edit-card {
+        background-color: #fffcf9;
+        border-radius: 20px;
+        padding: 40px 50px;
+        width: 100%;
+        max-width: 700px;
+        box-shadow: 0 10px 30px rgba(107, 78, 61, 0.1);
+        border: 1px solid #e2d5cc;
+    }
+
+    .edit-title {
+        color: #6b4e3d;
+        font-family: 'Georgia', serif;
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+
+    .custom-label {
+        font-weight: bold;
+        color: #5a4031;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .custom-input {
+        border: 2px solid #e2d5cc;
+        border-radius: 10px;
+        padding: 12px 15px;
+        width: 100%;
+        background-color: white;
+        margin-bottom: 20px;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+        .custom-input:focus {
+            outline: none;
+            border-color: #a3765d;
+            box-shadow: 0 0 8px rgba(163, 118, 93, 0.15);
+        }
+
+
+    textarea.custom-input {
+        min-height: 200px;
+        resize: vertical;
+    }
+
+
+    .save-btn {
+        background-color: #8b5e3c;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 14px;
+        width: 100%;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.3s;
+        margin-top: 10px;
+    }
+
+        .save-btn:hover {
+            background-color: #724c30;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="edit-wrapper">
+    <div class="edit-card">
+        <h2 class="edit-title">✍️ Edit Story</h2>
+
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Title" class="custom-label">Title</label>
+                <input asp-for="Title" class="custom-input" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="custom-label">Content</label>
+                <textarea asp-for="Content" class="custom-input"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CreatedAt" class="custom-label">Created At</label>
+                <input asp-for="CreatedAt" class="custom-input" />
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AuthorId" class="custom-label">Author</label>
+                <select asp-for="AuthorId" class="custom-input" asp-items="ViewBag.AuthorId"></select>
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="save-btn">Save Changes</button>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <a asp-action="Index" style="color: #a3765d; text-decoration: none; font-weight: bold;">← Back to Library</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

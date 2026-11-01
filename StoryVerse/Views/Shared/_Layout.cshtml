@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StoryVerse</title>
+    
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <div class="logo">StoryVerse</div>
+        <nav>
+            <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-area="" asp-controller="Stories" asp-action="Index">Stories</a>
+
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <a asp-area="" asp-controller="Stories" asp-action="Create">Publish</a>
+                <a asp-area="" asp-controller="Favorites" asp-action="Index">Favorites</a>
+                <a asp-area="" asp-controller="Users" asp-action="MyProfile">Profile</a>
+                <a asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+            }
+            else
+            {
+                <a asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+                <a asp-area="" asp-controller="Auth" asp-action="Register">Register</a>
+            }
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="admin-links" style="font-size: 0.8em; margin-top: 10px;">
+            <a asp-controller="Categories" asp-action="Index" style="color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 10px;">Categories Admin</a>
+            <a asp-controller="Comments" asp-action="Index" style="color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 10px;">Comments Admin</a>
+            <a asp-controller="Users" asp-action="Index" style="color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 10px;">Users Admin</a>
+        </div>
+        <p>© 2026 StoryVerse | Project Web Applications Design</p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

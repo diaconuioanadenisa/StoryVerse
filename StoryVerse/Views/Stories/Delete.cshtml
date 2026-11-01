@@ -1,0 +1,116 @@
+﻿@model StoryVerse.Models.Story
+
+@{
+    ViewData["Title"] = "Delete Story";
+}
+
+<style>
+
+    .delete-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 130px);
+        padding: 40px 20px;
+    }
+
+    .delete-card {
+        background-color: #fffcf9;
+        border-radius: 20px;
+        padding: 40px 50px;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 10px 30px rgba(107, 78, 61, 0.1);
+        border: 1px solid #e2d5cc;
+        text-align: center;
+    }
+
+    .delete-title {
+        color: #d9534f;
+        font-family: 'Georgia', serif;
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .delete-warning {
+        color: #5a4031;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+
+
+    .story-preview {
+        background: white;
+        border: 1px dashed #e2d5cc;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+        text-align: left; 
+    }
+
+        .story-preview h3 {
+            color: #4a2f21;
+            margin-top: 0;
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
+        }
+
+        .story-preview p {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 5px;
+        }
+
+  
+    .delete-btn {
+        background-color: #d9534f;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 14px;
+        width: 100%;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.3s;
+        margin-bottom: 15px;
+    }
+
+        .delete-btn:hover {
+            background-color: #c9302c;
+            transform: translateY(-2px);
+        }
+
+    .cancel-link {
+        color: #8b5e3c;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        transition: color 0.2s;
+    }
+    
+        .cancel-link:hover {
+            color: #5a4031;
+        }
+</style>
+
+<div class="delete-wrapper">
+    <div class="delete-card">
+        <h2 class="delete-title">⚠️ Delete Story</h2>
+        <p class="delete-warning">Are you absolutely sure you want to delete this story? This action cannot be undone.</p>
+
+        <div class="story-preview">
+            <h3>@Model.Title</h3>
+            <p><strong>Author:</strong> @(Model.Author?.Username ?? "Unknown")</p>
+            <p><strong>Created At:</strong> @Model.CreatedAt</p>
+        </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            
+            <button type="submit" class="delete-btn">Yes, delete it</button>
+            <br />
+            <a asp-action="Index" class="cancel-link">← No, take me back to Library</a>
+        </form>
+    </div>
+</div>

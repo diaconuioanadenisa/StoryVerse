@@ -1,0 +1,576 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #2f2a26;
+    background: radial-gradient(circle at top left, rgba(255, 183, 197, 0.45), transparent 20%), radial-gradient(circle at top right, rgba(255, 223, 186, 0.45), transparent 20%), radial-gradient(circle at bottom left, rgba(186, 225, 255, 0.45), transparent 20%), radial-gradient(circle at bottom right, rgba(221, 214, 254, 0.45), transparent 20%), linear-gradient(135deg, #fdf6ec, #f8efe7, #f5f3ff);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* HEADER */
+header {
+    background: rgba(85, 54, 19, 0.941);
+    backdrop-filter: blur(8px);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 110px 20px;
+}
+
+.hero-home {
+    background-image: linear-gradient(rgba(201, 195, 195, 0.45), rgba(166, 159, 159, 0.45)), url("../images/books.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 54px;
+    margin-bottom: 18px;
+    color: #382014;
+}
+
+.hero p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 25px;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    color: #110a04;
+}
+
+.btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #a86c4d, #8b5e3c);
+    color: white;
+    padding: 13px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(139, 94, 60, 0.25);
+}
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 20px rgba(139, 94, 60, 0.35);
+    }
+
+/* SECTIONS */
+.section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 35px;
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(90, 70, 60, 0.08);
+    backdrop-filter: blur(6px);
+}
+
+    .section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 34px;
+        color: #4a2f21;
+        margin-bottom: 20px;
+    }
+
+    .section h3 {
+        font-family: 'Playfair Display', serif;
+        color: #5c3d2e;
+        margin-bottom: 10px;
+    }
+
+    .section p {
+        color: #5f554d;
+        margin-bottom: 10px;
+    }
+
+/* CARDS */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 20px;
+}
+
+.card {
+    background: linear-gradient(180deg, #ffffff, #fff9f4);
+    border-radius: 20px;
+    padding: 22px;
+    width: 280px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    border: 1px solid rgba(180, 140, 120, 0.14);
+}
+
+    .card:hover {
+        transform: translateY(-6px);
+    }
+
+    .card h3 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .card p {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+/* TAGS */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+    .tags span {
+        background: linear-gradient(135deg, #f7d7e3, #e6d9ff);
+        color: #5b3c50;
+        padding: 10px 16px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+/* SEARCH */
+.search-bar {
+    width: 100%;
+    max-width: 420px;
+    padding: 13px 15px;
+    border-radius: 12px;
+    border: 1px solid #d9cfc6;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    font-size: 15px;
+    outline: none;
+}
+
+/* FORM */
+.form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 800px;
+}
+
+    .form-box input,
+    .form-box textarea,
+    .form-box select {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 14px;
+        border: 1px solid #d8cec5;
+        background-color: rgba(255, 255, 255, 0.9);
+        font-size: 15px;
+        outline: none;
+    }
+
+    .form-box textarea {
+        resize: vertical;
+    }
+
+/* REVIEW BOX */
+.review-box {
+    margin-top: 20px;
+    padding: 18px;
+    background: rgba(255, 247, 239, 0.9);
+    border-left: 5px solid #c58d6d;
+    border-radius: 14px;
+}
+
+/* PROFILE INFO */
+.profile-info {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fff6f0, #f8f3ff);
+    border-radius: 18px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 22px;
+    background: rgba(92, 61, 46, 0.92);
+    color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .section {
+        width: 94%;
+        padding: 25px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    nav {
+        justify-content: center;
+    }
+}
+
+/* FAVORITE HEART BUTTON */
+.card {
+    position: relative;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+    .favorite-btn:hover {
+        transform: scale(1.08);
+        background: white;
+    }
+
+    .favorite-btn.active {
+        animation: popHeart 0.35s ease;
+    }
+
+@keyframes popHeart {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.35);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* STORY-DETAILS PAGE */
+.story-top {
+    margin-top: 40px;
+}
+
+.story-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.story-cover {
+    width: 240px;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.story-info h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: #4a2f21;
+}
+
+.story-info p {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.story-info .btn {
+    margin-top: 20px;
+}
+
+
+/* PROFILE PAGE */
+.profile-box {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.profile-picture {
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.profile-info {
+    flex: 1;
+    min-width: 260px;
+}
+
+    .profile-info h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 36px;
+        margin-bottom: 15px;
+        color: #4a2f21;
+    }
+
+.profile-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #fff6f0, #f8f3ff);
+    padding: 18px 22px;
+    border-radius: 18px;
+    min-width: 150px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+    .stat-card h3 {
+        font-size: 28px;
+        color: #5c3d2e;
+        margin-bottom: 8px;
+    }
+
+    .stat-card p {
+        font-size: 14px;
+        color: #5f554d;
+    }
+
+/* PUBLISH PAGE */
+.publish-page {
+    background-image: url("../images/writing-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* FAVORITES PAGE*/
+.favorites-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 120px;
+    font-style: oblique;
+    letter-spacing: 3px;
+    font-weight: bolder;
+    color: #4a2f21;
+    margin-bottom: 12px;
+}
+
+.favorites-subtitle {
+    font-size: 70px;
+    font-style: oblique;
+    color: #6b5a50;
+}
+
+
+
+.bookshelf {
+    align-items: stretch;
+}
+
+    /* BOOK CARD DESIGN*/
+    .bookshelf .card {
+        position: relative;
+        width: 230px;
+        min-height: 320px;
+        padding: 24px 20px 24px 28px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, #fffdf9, #f8f1ea);
+        box-shadow: 0 12px 24px rgba(60, 40, 20, 0.10);
+        border: 1px solid rgba(130, 95, 70, 0.12);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        overflow: hidden;
+    }
+
+        /* BOOK SPINE EFFECT */
+        .bookshelf .card::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 14px;
+            height: 100%;
+            background: linear-gradient(180deg, #8b5e3c, #6f472c);
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+        }
+
+        .bookshelf .card::after {
+            content: "";
+            position: absolute;
+            left: 14px;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .bookshelf .card:hover {
+            transform: translateY(-8px) rotate(-1deg);
+            box-shadow: 0 18px 30px rgba(60, 40, 20, 0.16);
+        }
+
+        .bookshelf .card h3 {
+            font-size: 28px;
+            line-height: 1.2;
+            margin-bottom: 14px;
+            color: #4a2f21;
+        }
+
+        .bookshelf .card p {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+.bookshelf {
+    position: relative;
+    padding-bottom: 18px;
+}
+
+    .bookshelf::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 12px;
+        background: linear-gradient(180deg, #8a654d, #6e4e3a);
+        border-radius: 10px;
+    }
+
+    .bookshelf .card:nth-child(2)::before {
+        background: linear-gradient(180deg, #6d597a, #4a3b55);
+    }
+
+    .bookshelf .card:nth-child(3)::before {
+        background: linear-gradient(180deg, #7a8b5e, #55633f);
+    }
+
+    .bookshelf .card:nth-child(4)::before {
+        background: linear-gradient(180deg, #a86c4d, #8b5e3c);
+    }
+
+/* STORIES PAGE */
+.stories-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-style: italic;
+    letter-spacing: 2px;
+    color: #4a2f21;
+    margin-bottom: 20px;
+}
+
+/* Stil pentru Tabelul de Povești */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    margin-top: 20px;
+}
+
+th {
+    background-color: #553613;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+}
+
+td {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.01);
+    transition: 0.2s;
+}
+
+/* Stil pentru link-urile Edit/Details/Delete */
+td a {
+    color: #8b5e3c;
+    text-decoration: none;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+    td a:hover {
+        text-decoration: underline;
+    }

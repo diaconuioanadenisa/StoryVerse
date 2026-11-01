@@ -1,0 +1,76 @@
+﻿@model IEnumerable<StoryVerse.Models.Story>
+@inject StoryVerse.Data.AppDbContext _context
+
+@{
+    ViewData["Title"] = "Stories";
+}
+
+<div class="section">
+    <h1 class="stories-title" style="font-family: 'Playfair Display', serif; color: #4a2f21; margin-bottom: 20px;">All Stories</h1>
+
+    <p>
+        <a asp-action="Create" class="btn" style="background: #a3765d; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">Publish New Story</a>
+    </p>
+
+    <form asp-action="Index" method="get" style="margin-bottom: 30px;">
+        <input type="text"
+               name="searchString"
+               value="@ViewData["CurrentFilter"]"
+               placeholder="Search by author, title or genre..."
+               class="search-bar"
+               style="padding: 10px; border-radius: 8px; border: 1px solid #e2d5cc; width: 300px; max-width: 100%;" />
+        <button type="submit" class="btn" style="padding: 10px 15px; background: #8b5e3c; color: white; border: none; border-radius: 8px; cursor: pointer;">Search</button>
+    </form>
+
+    <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px;">
+        @foreach (var item in Model)
+        {
+
+            bool isFavorite = false;
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                var currentUser = _context.Users.FirstOrDefault(u => u.Username == User.Identity.Name);
+                if (currentUser != null)
+                {
+
+                    isFavorite = _context.Favorites.Any(f => f.UserId == currentUser.Id && f.StoryId == item.Id);
+                }
+            }
+
+            <div class="card" style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); width: calc(33.333% - 20px); min-width: 250px; position: relative;">
+                
+                <form asp-controller="Favorites" asp-action="ToggleFavorite" method="post" style="position: absolute; top: 15px; right: 15px;">
+                    <input type="hidden" name="storyId" value="@item.Id" />
+                    <button type="submit" class="favorite-btn" style="background: white; border: none; font-size: 1.5rem; cursor: pointer; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        @(isFavorite ? "❤️" : "🤍")
+                    </button>
+                </form>
+                
+                <h3 style="color: #4a2f21; font-family: 'Playfair Display', serif; margin-top: 10px;">@item.Title</h3>
+                
+                <p style="color: #5a4031; font-size: 0.9em; margin-bottom: 10px;"><strong>Author:</strong> @(item.Author != null ? item.Author.Username : "Unknown")</p>
+                
+                <p style="color: #666; font-size: 0.95em; line-height: 1.5;">
+                    @if (item.Content != null && item.Content.Length > 100)
+                    {
+                        @item.Content.Substring(0, 100)
+                        <span>...</span>
+                    }
+                    else
+                    {
+                        @item.Content
+                    }
+                </p>
+
+                <div style="margin-top: 20px;">
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn" style="background: #a3765d; color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; font-size: 0.9em;">Show details</a>
+                </div>
+
+                <div style="margin-top: 15px; font-size: 0.8em; border-top: 1px solid #eee; padding-top: 10px;">
+                    <a asp-action="Edit" asp-route-id="@item.Id" style="color: #8b5e3c; text-decoration: none;">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" style="color: #d9534f; text-decoration: none;">Delete</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

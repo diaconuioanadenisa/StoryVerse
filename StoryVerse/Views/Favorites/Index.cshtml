@@ -1,0 +1,52 @@
+﻿@model IEnumerable<StoryVerse.Models.Story>
+
+@{
+    ViewData["Title"] = "My Favorites";
+}
+
+<div class="container mt-5" style="min-height: 70vh;">
+    <h2 style="color: #6b4e3d; font-family: 'Georgia', serif; font-style: italic; margin-bottom: 20px;">My Favorite Stories</h2>
+    <hr style="border-color: #e2d5cc; margin-bottom: 30px;" />
+    
+    @if (!Model.Any())
+    {
+        <p style="color: #8b5e3c; font-size: 1.1rem; font-style: italic;">
+            Nu ai adăugat încă nicio poveste la favorite. Mergi pe pagina de povești și apasă pe inimioară!
+        </p>
+    }
+    else
+    {
+        <div class="card-container" style="display: flex; flex-wrap: wrap; gap: 20px;">
+            @foreach (var item in Model)
+            {
+                <div class="card" style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); width: calc(33.333% - 20px); min-width: 250px; position: relative; border: 1px solid #fffcf9;">
+                    
+                    <form asp-controller="Favorites" asp-action="ToggleFavorite" method="post" style="position: absolute; top: 15px; right: 15px;">
+                        <input type="hidden" name="storyId" value="@item.Id" />
+                        <button type="submit" style="background: white; border: none; font-size: 1.5rem; cursor: pointer; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                            ❤️
+                        </button>
+                    </form>
+                    
+                    <h3 style="color: #4a2f21; font-family: 'Playfair Display', serif; margin-top: 10px;">@item.Title</h3>
+                    
+                    <p style="color: #666; font-size: 0.95em; line-height: 1.5; margin-top: 15px;">
+                        @if (item.Content != null && item.Content.Length > 100)
+                        {
+                            @item.Content.Substring(0, 100)
+                            <span>...</span>
+                        }
+                        else
+                        {
+                            @item.Content
+                        }
+                    </p>
+
+                    <div style="margin-top: 20px;">
+                        <a asp-controller="Stories" asp-action="Details" asp-route-id="@item.Id" class="btn" style="background: #a3765d; color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; font-size: 0.9em;">Show details</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

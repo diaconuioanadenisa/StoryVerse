@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    /* Stiluri personalizate pentru o interfață mai artistică */
+    .auth-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 65vh; /* Centrează vertical pe pagină */
+    }
+
+    .auth-card {
+        background-color: #fcf9f6;
+        border-radius: 20px; /* Margini mai rotunjite și fine */
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(107, 78, 61, 0.15); /* Umbră difuză pentru adâncime */
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+    }
+
+    .auth-title {
+        color: #6b4e3d;
+        font-family: 'Georgia', serif; /* Un font serif, mai literar, potrivit pentru StoryVerse */
+        font-style: italic;
+        font-size: 2.2rem;
+        margin-bottom: 35px;
+    }
+
+    .auth-input {
+        border: 2px solid #e2d5cc;
+        border-radius: 12px;
+        padding: 14px 16px;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: #fffaf7;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: #a3765d;
+            box-shadow: 0 0 10px rgba(163, 118, 93, 0.2); /* Efect luminos la selectare */
+        }
+
+    .auth-label {
+        display: block;
+        text-align: left;
+        font-weight: 600;
+        color: #5a4031;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+
+    .auth-btn {
+        background-color: #a3765d;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 14px;
+        width: 100%;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.3s;
+        margin-top: 20px;
+    }
+
+        .auth-btn:hover {
+            background-color: #8a6048;
+            transform: translateY(-2px); /* Butonul se ridică puțin la hover */
+        }
+</style>
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h2 class="auth-title">Welcome Back,Dear Friend
+            The story missed you
+        </h2>
+        <form asp-action="Login" method="post">
+            <div style="margin-bottom: 20px;">
+                <label for="username" class="auth-label">Username</label>
+                <input type="text" class="auth-input" id="username" name="username" placeholder="Enter your username..." required />
+            </div>
+            <div style="margin-bottom: 25px;">
+                <label for="password" class="auth-label">Password</label>
+                <input type="password" class="auth-input" id="password" name="password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="auth-btn">Login</button>
+        </form>
+    </div>
+</div>

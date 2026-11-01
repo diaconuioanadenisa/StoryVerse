@@ -1,0 +1,129 @@
+﻿@model StoryVerse.Models.Story
+
+@{
+    ViewData["Title"] = "Publish Story";
+}
+
+<style>
+    .publish-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 130px);
+        /* Aici am pus imaginea ta magică, cu un strat fin pentru a nu fi prea orbitoare */
+        background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('/images/magic.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        padding: 40px 20px;
+    }
+
+    .publish-card {
+        /* MAGIA GLASSMORPHISM: Fundal alb semi-transparent cu efect de blur */
+        background-color: rgba(255, 252, 249, 0.35);
+        backdrop-filter: blur(8px); /* Efectul de sticlă mată */
+        -webkit-backdrop-filter: blur(8px); /* Pentru browserele Safari */
+        
+        border-radius: 20px;
+        padding: 50px 40px;
+        width: 100%;
+        max-width: 750px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255, 255, 255, 0.5); /* O margine fină luminoasă ca muchia sticlei */
+    }
+
+    .publish-title {
+        color: #4a2f21;
+        font-family: 'Georgia', serif;
+        font-size: 2.2rem;
+        margin-bottom: 35px;
+        text-align: center;
+        font-weight: bold;
+        text-shadow: 1px 1px 3px rgba(255,255,255,0.9); /* Contur alb ca să se citească bine peste sticlă */
+    }
+
+    /* Căsuțele de scris rămân albe ca să poți citi ușor ce tastezi */
+    .publish-input {
+        border: 2px solid rgba(226, 213, 204, 0.8);
+        border-radius: 12px;
+        padding: 16px 20px;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.95);
+        margin-bottom: 25px;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+        .publish-input:focus {
+            outline: none;
+            border-color: #a3765d;
+            box-shadow: 0 0 15px rgba(163, 118, 93, 0.3);
+        }
+
+    textarea.publish-input {
+        min-height: 250px;
+        resize: vertical;
+    }
+
+    .publish-btn {
+        background-color: #8b5e3c;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 16px;
+        width: 100%;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        margin-top: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+        .publish-btn:hover {
+            background-color: #724c30;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="publish-wrapper">
+    <div class="publish-card">
+        <h2 class="publish-title">✨ Let your imagination soar ✨</h2>
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <input asp-for="Title" class="publish-input" placeholder="Story title" required />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <select asp-for="AuthorId" class="publish-input" asp-items="ViewBag.AuthorId" required>
+                    <option value="">-- Choose Author --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <textarea asp-for="Content" class="publish-input" placeholder="Write your story here..." required></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="publish-btn">Publish story</button>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a asp-action="Index" style="color: #4a2f21; text-decoration: none; font-size: 0.95em; font-weight: bold;">Back to Library</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

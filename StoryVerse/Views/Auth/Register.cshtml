@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<style>
+
+    /* Stiluri actualizate pentru a include imaginea de fundal */
+    .auth-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: clac(100vh-130px); /* Crescut puțin de la 65vh pentru o prezență mai bună */
+        width: 100%;
+        padding 40px 0;
+
+        /* --- LINIILE NOI ADAUGATE PENTRU IMAGINEA DE FUNDAL --- */
+        background-image: linear-gradient(rgba(252, 249, 246, 0.65), rgba(252, 249, 246, 0.65)), url('/images/bg.png'); /* Calea către imaginea pe care ai salvat-o */
+        background-size: cover; /* Asigură că imaginea acoperă toată zona, fără a se întinde ciudat */
+        background-position: center; /* Centrează modelul de fundal */
+        background-repeat: no-repeat; /* Previne repetarea imaginii dacă zona e mai mare */
+        /* --------------------------------------------------- */
+    }
+
+    .auth-card {
+        background-color: rgba(252, 249, 246, 0.97); /* Am făcut fundalul cardului foarte puțin transparent (0.97) ca să se integreze mai bine, dar să rămână perfect lizibil */
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(107, 78, 61, 0.25); /* Umbră puțin mai intensă ca să iasă în evidență cardul peste fundal */
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+        border: 1px solid #e2d5cc; /* O bordură fină asortată */
+    }
+
+    .auth-title {
+        color: #6b4e3d;
+        font-family: 'Georgia', serif;
+        font-style: italic;
+        font-size: 2.2rem;
+        margin-bottom: 35px;
+    }
+
+    .auth-input {
+        border: 2px solid #e2d5cc;
+        border-radius: 12px;
+        padding: 14px 16px;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: #fffaf7;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: #a3765d;
+            box-shadow: 0 0 10px rgba(163, 118, 93, 0.2);
+        }
+
+    .auth-label {
+        display: block;
+        text-align: left;
+        font-weight: 600;
+        color: #5a4031;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+
+    .auth-btn {
+        background-color: #a3765d;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 14px;
+        width: 100%;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.3s;
+        margin-top: 20px;
+    }
+
+        .auth-btn:hover {
+            background-color: #8a6048;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h2 class="auth-title">Create an Account</h2>
+        <form asp-action="Register" method="post">
+            <div style="margin-bottom: 20px;">
+                <label for="username" class="auth-label">Username</label>
+                <input type="text" class="auth-input" id="username" name="username" placeholder="Choose a username..." required />
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label for="email" class="auth-label">Email Address</label>
+                <input type="email" class="auth-input" id="email" name="email" placeholder="Enter your email..." required />
+            </div>
+            <div style="margin-bottom: 25px;">
+                <label for="password" class="auth-label">Password</label>
+                <input type="password" class="auth-input" id="password" name="password" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="auth-btn">Register</button>
+        </form>
+    </div>
+</div>
